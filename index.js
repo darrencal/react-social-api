@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const { errorHandler } = require('./middleware/errorMiddleware')
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 
@@ -20,6 +21,8 @@ app.use(morgan('common'));
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
+
+app.use(errorHandler);
 
 const PORT = 8800;
 app.listen(PORT, () => {
